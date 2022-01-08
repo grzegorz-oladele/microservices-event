@@ -1,6 +1,5 @@
 package pl.grzegorz.attendees.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.attendees.dto.ParticipantDto;
 import pl.grzegorz.attendees.dto.ParticipantDtoInfo;
@@ -9,11 +8,14 @@ import pl.grzegorz.attendees.service.ParticipantService;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/participants")
 public class ParticipantController {
 
     private final ParticipantService participantService;
+
+    public ParticipantController(ParticipantService participantService) {
+        this.participantService = participantService;
+    }
 
     @GetMapping("/{id}")
     public ParticipantDtoInfo getParticipantById(@PathVariable long id) {

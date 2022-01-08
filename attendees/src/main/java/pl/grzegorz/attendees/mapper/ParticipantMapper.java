@@ -14,7 +14,7 @@ public class ParticipantMapper {
         if (participantDto == null) {
             return null;
         }
-        var participantEntityBuilder = new ParticipantEntityBuilder();
+        ParticipantEntityBuilder participantEntityBuilder = new ParticipantEntityBuilder();
         if (participantDto.getFirstName() != null) {
             participantEntityBuilder.withFirstName(participantDto.getFirstName());
         }
@@ -37,7 +37,7 @@ public class ParticipantMapper {
         if (participantEntity == null) {
             return null;
         }
-        var participantDtoInfoBuilder = new ParticipantDtoInfoBuilder();
+        ParticipantDtoInfoBuilder participantDtoInfoBuilder = new ParticipantDtoInfoBuilder();
         if (participantEntity.getId() > 0) {
             participantDtoInfoBuilder.withId(participantEntity.getId());
         }

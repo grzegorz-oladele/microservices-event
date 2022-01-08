@@ -1,6 +1,5 @@
 package pl.grzegorz.attendees.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.grzegorz.attendees.dto.ParticipantDto;
 import pl.grzegorz.attendees.exception.ParticipantError;
@@ -11,10 +10,13 @@ import pl.grzegorz.attendees.repository.ParticipantRepository;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class ParticipantValidator {
 
     private final ParticipantRepository participantRepository;
+
+    public ParticipantValidator(ParticipantRepository participantRepository) {
+        this.participantRepository = participantRepository;
+    }
 
     protected ParticipantEntity validateNotFound(long id) {
         return participantRepository.findById(id)

@@ -1,6 +1,5 @@
 package pl.grzegorz.attendees.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.attendees.dto.ParticipantDto;
 import pl.grzegorz.attendees.dto.ParticipantDtoInfo;
@@ -12,12 +11,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
 
     private final ParticipantRepository participantRepository;
     private final ParticipantValidator participantValidator;
     private final ParticipantMapper participantMapper;
+
+    public ParticipantServiceImpl(ParticipantRepository participantRepository, ParticipantValidator participantValidator,
+                                  ParticipantMapper participantMapper) {
+        this.participantRepository = participantRepository;
+        this.participantValidator = participantValidator;
+        this.participantMapper = participantMapper;
+    }
 
     @Override
     public ParticipantDtoInfo getParticipantById(long id) {
