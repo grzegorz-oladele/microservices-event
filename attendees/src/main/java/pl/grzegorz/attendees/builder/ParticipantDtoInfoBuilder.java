@@ -10,7 +10,8 @@ public class ParticipantDtoInfoBuilder {
     private String email;
     private int age;
     private String company;
-    ParticipantDtoInfoBuilder withId(long id) {
+
+    public ParticipantDtoInfoBuilder withId(long id) {
         this.id = id;
         return this;
     }
