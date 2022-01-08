@@ -1,6 +1,5 @@
 package pl.grzegorz.attendees.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.grzegorz.attendees.builder.ParticipantDtoInfoBuilder;
 import pl.grzegorz.attendees.builder.ParticipantEntityBuilder;
