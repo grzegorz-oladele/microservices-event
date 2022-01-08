@@ -13,6 +13,4 @@ public class ParticipantDtoInfo {
     private String email;
     private int age;
     private String company;
-
-
 }
