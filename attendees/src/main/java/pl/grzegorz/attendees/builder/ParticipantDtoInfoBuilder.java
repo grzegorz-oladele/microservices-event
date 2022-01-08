@@ -15,7 +15,7 @@ public class ParticipantDtoInfoBuilder {
         return this;
     }
 
-    public ParticipantDtoInfoBuilder withId(String firstName) {
+    public ParticipantDtoInfoBuilder withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
