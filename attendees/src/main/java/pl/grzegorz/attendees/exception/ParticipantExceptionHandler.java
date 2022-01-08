@@ -15,7 +15,8 @@ public class ParticipantExceptionHandler {
                 || ParticipantError.PARTICIPANT_EMPTY_LIST.equals(e.getParticipantError())) {
             httpStatus = HttpStatus.NOT_FOUND;
         }
-        if (ParticipantError.PARTICIPANT_NULL_POINTER.equals(e.getParticipantError())) {
+        if (ParticipantError.PARTICIPANT_NULL_POINTER.equals(e.getParticipantError())
+        || ParticipantError.PARTICIPANT_ALREADY_EXISTS.equals(e.getParticipantError())) {
             httpStatus = HttpStatus.BAD_REQUEST;
         }
         return ResponseEntity.status(httpStatus).body(new ErrorParticipantInfo(e.getParticipantError().getMessage()));

@@ -8,6 +8,7 @@ import pl.grzegorz.attendees.model.ParticipantEntity;
 import pl.grzegorz.attendees.repository.ParticipantRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ParticipantValidator {
@@ -45,5 +46,22 @@ public class ParticipantValidator {
         if (participantDto == null) {
             throw new ParticipantException(ParticipantError.PARTICIPANT_NULL_POINTER);
         }
+    }
+
+    protected void validateParticipantEmail(String emailValue) {
+        List<ParticipantEntity> participants = participantRepository.findAll();
+        List<String> participantsEmails = participantsEmail(participants);
+        participantsEmails.stream()
+                .filter(participantsEmail -> participantsEmail.equals(emailValue))
+                .forEach(participantsEmail -> {
+            throw new ParticipantException(ParticipantError.PARTICIPANT_ALREADY_EXISTS);
+        });
+    }
+
+    private List<String> participantsEmail(List<ParticipantEntity> participants) {
+        return participants
+                .stream()
+                .map(ParticipantEntity::getEmail)
+                .collect(Collectors.toList());
     }
 }

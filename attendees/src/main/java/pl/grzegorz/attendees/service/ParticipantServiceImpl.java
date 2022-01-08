@@ -40,6 +40,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public ParticipantDtoInfo addParticipant(ParticipantDto participantDto) {
         participantValidator.validateParticipantDto(participantDto);
+        participantValidator.validateParticipantEmail(participantDto.getEmail());
         ParticipantEntity participantEntity = participantMapper.fromDtoToEntity(participantDto);
         participantRepository.save(participantEntity);
         return participantMapper.fromEntityToDtoInfo(participantEntity);
