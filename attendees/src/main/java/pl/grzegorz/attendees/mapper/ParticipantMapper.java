@@ -40,7 +40,7 @@ public class ParticipantMapper {
         }
         var participantDtoInfoBuilder = new ParticipantDtoInfoBuilder();
         if (participantEntity.getId() > 0) {
-            participantDtoInfoBuilder.withAge(participantEntity.getAge());
+            participantDtoInfoBuilder.withId(participantEntity.getId());
         }
         if (participantEntity.getFirstName() != null) {
             participantDtoInfoBuilder.withFirstName(participantEntity.getFirstName());

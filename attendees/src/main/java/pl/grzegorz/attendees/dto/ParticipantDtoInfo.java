@@ -16,8 +16,6 @@ public class ParticipantDtoInfo {
     private String email;
     private int age;
     private String company;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
 
 
 }
