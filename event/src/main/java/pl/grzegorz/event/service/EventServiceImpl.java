@@ -20,10 +20,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEvents() {
-        List<Event> eventList = eventRepository.findAll();
-        eventValidator.validateEmptyList(eventList);
-        return eventList;
+    public List<Event> getAllEvents(Event.Status status) {
+        if (status == null) {
+            List<Event> eventList = eventRepository.findAll();
+            eventValidator.validateEmptyList(eventList);
+            return eventList;
+        } else {
+            List<Event> eventListByStatus = eventRepository.findAllByStatus(status);
+            eventValidator.validateEmptyList(eventListByStatus);
+            return eventListByStatus;
+        }
     }
 
     @Override
@@ -35,6 +41,7 @@ public class EventServiceImpl implements EventService {
     public Event addEvent(Event event) {
         List<Event> eventList = eventRepository.findAll();
         eventValidator.validateAlreadyExist(event.getCode(), eventList);
+        eventValidator.validateDate(event);
         return eventRepository.save(event);
     }
 
@@ -57,7 +64,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public void removeEventByCode(String code) {
         Event event = getEvent(code);
-        eventRepository.delete(event);
+        event.setStatus(Event.Status.INACTIVE);
+        eventRepository.save(event);
     }
 
     private Event getEvent(String code) {

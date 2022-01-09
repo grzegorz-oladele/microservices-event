@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EventService {
 
-    List<Event> getAllEvents();
+    List<Event> getAllEvents(Event.Status status);
 
     Event getEventByCode(String code);
 

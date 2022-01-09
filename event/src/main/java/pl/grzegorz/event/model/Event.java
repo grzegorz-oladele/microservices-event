@@ -3,16 +3,24 @@ package pl.grzegorz.event.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Document
 public class Event {
 
+    public enum Status {
+
+        ACTIVE,
+        INACTIVE
+        ,FULL
+    }
+
     @Id
     private String code;
     private String name;
     private String description;
-    private boolean isActive = true;
+    private Status status = Status.ACTIVE;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Long participantsLimit;
@@ -74,11 +82,11 @@ public class Event {
         this.participantsNumber = participantsNumber;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
