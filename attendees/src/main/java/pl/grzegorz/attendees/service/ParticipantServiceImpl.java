@@ -31,6 +31,12 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
+    public List<ParticipantDtoInfo> getParticipantsByEmails(List<String> emails) {
+        List<ParticipantEntity> entityEmailList = participantRepository.findAllByEmailIn(emails);
+        return toParticipantListByEmail(entityEmailList);
+    }
+
+    @Override
     public List<ParticipantDtoInfo> getAllActiveParticipants() {
         List<ParticipantEntity> participantEntityList = participantRepository.findAll();
         participantValidator.validateEmptyList(participantEntityList);
@@ -74,6 +80,13 @@ public class ParticipantServiceImpl implements ParticipantService {
         return list
                 .stream()
                 .filter(ParticipantEntity::isActive)
+                .map(participantMapper::fromEntityToDtoInfo)
+                .collect(Collectors.toList());
+    }
+
+    private List<ParticipantDtoInfo> toParticipantListByEmail(List<ParticipantEntity> list) {
+        return list
+                .stream()
                 .map(participantMapper::fromEntityToDtoInfo)
                 .collect(Collectors.toList());
     }
