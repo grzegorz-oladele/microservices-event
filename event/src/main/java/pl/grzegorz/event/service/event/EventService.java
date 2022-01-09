@@ -1,4 +1,4 @@
-package pl.grzegorz.event.service;
+package pl.grzegorz.event.service.event;
 
 import pl.grzegorz.event.model.Event;
 

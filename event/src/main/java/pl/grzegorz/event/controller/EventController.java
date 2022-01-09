@@ -2,7 +2,7 @@ package pl.grzegorz.event.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.event.model.Event;
-import pl.grzegorz.event.service.EventService;
+import pl.grzegorz.event.service.event.EventService;
 
 import java.util.List;
 

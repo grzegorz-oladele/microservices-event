@@ -1,4 +1,4 @@
-package pl.grzegorz.event.service;
+package pl.grzegorz.event.service.event;
 
 import org.springframework.stereotype.Service;
 import pl.grzegorz.event.exception.EventError;
