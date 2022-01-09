@@ -48,6 +48,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantValidator.validateParticipantDto(participantDto);
         participantValidator.validateParticipantEmail(participantDto.getEmail());
         ParticipantEntity participantEntity = participantMapper.fromDtoToEntity(participantDto);
+        participantEntity.setActive(true);
         participantRepository.save(participantEntity);
         return participantMapper.fromEntityToDtoInfo(participantEntity);
     }
@@ -73,7 +74,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public void removeParticipantById(long id) {
         ParticipantEntity participantEntity = participantValidator.validateNotFound(id);
-        participantEntity.setActive(false);
+        participantRepository.delete(participantEntity);
     }
 
     private List<ParticipantDtoInfo> toActiveParticipantDtoInfoList(List<ParticipantEntity> list) {

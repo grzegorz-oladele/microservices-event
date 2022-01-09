@@ -34,9 +34,14 @@ public class EventValidator {
     }
 
     protected void validateMaxParticipantNumber(Event event) {
-        if (event.getParticipantsNumber().equals(event.getParticipantsLimit())) {
-            event.setStatus(Event.Status.FULL);
+        if (event.getParticipantsNumber() >= event.getParticipantsLimit()) {
             throw new EventException(EventError.EVENT_MAX_PARTICIPANT_NUMBER);
+        }
+    }
+
+    protected void validateFullStatus(Event event) {
+        if (event.getParticipantsLimit().equals(event.getParticipantsNumber())) {
+            event.setStatus(Event.Status.FULL);
         }
     }
 
@@ -73,7 +78,7 @@ public class EventValidator {
     }
 
     protected void validateActiveParticipant(Participant participant) {
-        if(participant.isActive()) {
+        if(!participant.isActive()) {
             throw new EventException(EventError.PARTICIPANT_NOT_ACTIVE);
         }
     }

@@ -53,6 +53,7 @@ public class ParticipantMapper {
         if (participantEntity.getAge() > 0) {
             participantDtoInfoBuilder.withAge(participantEntity.getAge());
         }
+        participantDtoInfoBuilder.withIsActive(participantEntity.isActive());
         if (participantEntity.getCompany() != null) {
             participantDtoInfoBuilder.withCompany(participantEntity.getCompany());
         }

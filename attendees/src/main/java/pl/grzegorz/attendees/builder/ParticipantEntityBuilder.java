@@ -2,8 +2,6 @@ package pl.grzegorz.attendees.builder;
 
 import pl.grzegorz.attendees.model.ParticipantEntity;
 
-import java.time.LocalDateTime;
-
 public class ParticipantEntityBuilder {
 
     private String firstName;

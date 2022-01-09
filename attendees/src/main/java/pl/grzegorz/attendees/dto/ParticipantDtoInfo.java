@@ -7,6 +7,7 @@ public class ParticipantDtoInfo {
     private String lastName;
     private String email;
     private int age;
+    private boolean isActive;
     private String company;
 
     public long getId() {
@@ -55,5 +56,13 @@ public class ParticipantDtoInfo {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

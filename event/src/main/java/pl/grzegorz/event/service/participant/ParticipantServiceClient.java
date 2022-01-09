@@ -1,10 +1,7 @@
 package pl.grzegorz.event.service.participant;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.event.model.dto.Participant;
 
 import java.util.List;
@@ -16,6 +13,6 @@ public interface ParticipantServiceClient {
     @GetMapping("/{participantId}")
     Participant getParticipantById(@PathVariable long participantId);
 
-    @GetMapping("/emails")
+    @PostMapping("/emails")
     List<Participant> getParticipantsByEmailList(@RequestBody List<String> emails);
 }

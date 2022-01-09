@@ -10,6 +10,7 @@ import pl.grzegorz.event.repository.EventRepository;
 import pl.grzegorz.event.service.participant.ParticipantServiceClient;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -69,7 +70,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public void removeEventByCode(String code) {
         Event event = getEvent(code);
-//        event.setStatus(Event.Status.INACTIVE);
         eventRepository.delete(event);
     }
 
@@ -79,13 +79,22 @@ public class EventServiceImpl implements EventService {
         eventValidator.validateEventActive(event);
         Participant participant = participantServiceClient.getParticipantById(participantId);
         eventValidator.validateParticipantEnrolled(event, participant);
-        eventRepository.save(event);
         eventValidator.validateActiveParticipant(participant);
         eventValidator.validateMaxParticipantNumber(event);
         event.getEventMembers().add(new EventMember(participant.getEmail()));
         event.setParticipantsNumber(event.getParticipantsNumber() + 1);
-        eventRepository.save(event);
         eventValidator.setEventFullStatus(event);
+        eventRepository.save(event);
+    }
+
+    @Override
+    public List<Participant> getEventMembers(String eventCode) {
+        Event event = getEvent(eventCode);
+        List<String> emailsCourseMembers = event.getEventMembers()
+                .stream()
+                .map(EventMember::getEmail)
+                .collect(Collectors.toList());
+        return participantServiceClient.getParticipantsByEmailList(emailsCourseMembers);
     }
 
     private Event getEvent(String code) {

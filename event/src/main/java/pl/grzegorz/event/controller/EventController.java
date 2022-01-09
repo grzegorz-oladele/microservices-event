@@ -2,6 +2,7 @@ package pl.grzegorz.event.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.dto.Participant;
 import pl.grzegorz.event.service.event.EventService;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class EventController {
     @GetMapping("/{code}")
     public Event getEventByCode(@PathVariable String code) {
         return eventService.getEventByCode(code);
+    }
+
+    @PostMapping("/{code}/members")
+    public List<Participant> getEventMembers(@PathVariable String code) {
+        return eventService.getEventMembers(code);
     }
 
     @PostMapping

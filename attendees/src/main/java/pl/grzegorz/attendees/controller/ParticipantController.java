@@ -22,13 +22,13 @@ public class ParticipantController {
         return participantService.getParticipantById(id);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<ParticipantDtoInfo> getAllActiveParticipants() {
         return participantService.getAllActiveParticipants();
     }
 
-    @GetMapping("/emails")
-    public List<ParticipantDtoInfo> getAllEmails(@RequestBody List<String> emails) {
+    @PostMapping("/emails")
+    public List<ParticipantDtoInfo> getParticipantsByEmailList(@RequestBody List<String> emails) {
         return participantService.getParticipantsByEmails(emails);
     }
 
@@ -47,7 +47,7 @@ public class ParticipantController {
         return participantService.editCompany(id, participantDto);
     }
 
-    @PatchMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteParticipant(@PathVariable long id) {
         participantService.removeParticipantById(id);
     }

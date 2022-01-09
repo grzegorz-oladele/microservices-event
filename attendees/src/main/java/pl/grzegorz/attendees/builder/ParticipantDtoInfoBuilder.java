@@ -9,6 +9,7 @@ public class ParticipantDtoInfoBuilder {
     private String lastName;
     private String email;
     private int age;
+    private boolean isActive;
     private String company;
 
     public ParticipantDtoInfoBuilder withId(long id) {
@@ -36,6 +37,11 @@ public class ParticipantDtoInfoBuilder {
         return this;
     }
 
+    public ParticipantDtoInfoBuilder withIsActive(boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
     public ParticipantDtoInfoBuilder withCompany(String company) {
         this.company = company;
         return this;
@@ -48,6 +54,7 @@ public class ParticipantDtoInfoBuilder {
         participantDtoInfo.setLastName(lastName);
         participantDtoInfo.setEmail(email);
         participantDtoInfo.setAge(age);
+        participantDtoInfo.setActive(isActive);
         participantDtoInfo.setCompany(company);
         return participantDtoInfo;
     }

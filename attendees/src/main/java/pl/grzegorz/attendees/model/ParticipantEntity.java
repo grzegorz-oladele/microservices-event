@@ -13,7 +13,7 @@ public class ParticipantEntity {
     private String firstName;
     private String lastName;
     private String email;
-    private boolean isActive = true;
+    private boolean isActive;
     private int age;
     private String company;
     private LocalDateTime createdOn;
