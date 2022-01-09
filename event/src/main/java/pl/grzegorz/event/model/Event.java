@@ -12,7 +12,7 @@ public class Event {
     private String code;
     private String name;
     private String description;
-    private boolean isActive;
+    private boolean isActive = true;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Long participantsLimit;

@@ -12,7 +12,7 @@ public interface EventService {
 
     Event addEvent(Event event);
 
-    Event editParticipantsLimit(String code, long limit);
+    Event editParticipantsLimit(String code, Event event);
 
     Event editDescription(String code, Event event);
 

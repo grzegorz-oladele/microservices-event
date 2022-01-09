@@ -39,11 +39,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event editParticipantsLimit(String code, long limit) {
-        Event event = getEvent(code);
-        eventValidator.validateParticipantsLimit(limit, event);
-        event.setParticipantsLimit(limit);
-        return event;
+    public Event editParticipantsLimit(String code, Event event) {
+        Event event1 = getEvent(code);
+        eventValidator.validateParticipantsLimit(event.getParticipantsLimit(), event1);
+        event1.setParticipantsLimit(event.getParticipantsLimit());
+        return event1;
     }
 
     @Override
