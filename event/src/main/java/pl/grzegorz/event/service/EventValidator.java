@@ -6,7 +6,6 @@ import pl.grzegorz.event.exception.EventException;
 import pl.grzegorz.event.model.Event;
 
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class EventValidator {
@@ -41,7 +40,7 @@ public class EventValidator {
     }
 
     protected void validateDescription(String description) {
-        if (description == null || description.equals("") || description.matches("(.|\\s)*\\S(.|\\s)*")) {
+        if (description == null || description.equals("") || !description.matches("(.|\\s)*\\S(.|\\s)*")) {
             throw new EventException(EventError.EVENT_BAD_DESCRIPTION);
         }
     }
