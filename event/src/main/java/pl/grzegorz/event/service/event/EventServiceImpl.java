@@ -69,8 +69,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public void removeEventByCode(String code) {
         Event event = getEvent(code);
-        event.setStatus(Event.Status.INACTIVE);
-        eventRepository.save(event);
+//        event.setStatus(Event.Status.INACTIVE);
+        eventRepository.delete(event);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class EventServiceImpl implements EventService {
         eventValidator.validateParticipantEnrolled(event, participant);
         eventRepository.save(event);
         eventValidator.validateActiveParticipant(participant);
-        event.getEventMembers().add(new EventMember(participant.getFirstName(),
-                participant.getLastName(), participant.getEmail()));
+        eventValidator.validateMaxParticipantNumber(event);
+        event.getEventMembers().add(new EventMember(participant.getEmail()));
         event.setParticipantsNumber(event.getParticipantsNumber() + 1);
         eventRepository.save(event);
         eventValidator.setEventFullStatus(event);

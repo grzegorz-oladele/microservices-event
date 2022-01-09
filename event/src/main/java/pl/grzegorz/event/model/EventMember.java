@@ -9,10 +9,8 @@ public class EventMember {
     private String lastName;
     private String email;
 
-    public EventMember(String firstName, String lastName, String email) {
+    public EventMember(String email) {
         this.enrollmentData = LocalDateTime.now();
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
     }
 

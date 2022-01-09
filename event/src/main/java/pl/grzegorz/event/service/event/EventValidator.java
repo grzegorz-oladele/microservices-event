@@ -73,7 +73,7 @@ public class EventValidator {
     }
 
     protected void validateActiveParticipant(Participant participant) {
-        if(!participant.isActive()) {
+        if(participant.isActive()) {
             throw new EventException(EventError.PARTICIPANT_NOT_ACTIVE);
         }
     }
