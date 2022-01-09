@@ -22,4 +22,6 @@ public interface EventService {
     void eventEnrollment(String eventCode, long participantId);
 
     List<Participant> getEventMembers(String eventCode);
+
+    void eventFinishEnroll(String eventCode);
 }

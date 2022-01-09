@@ -56,4 +56,9 @@ public class EventController {
     public void participantEnrollmentOnEvent(@PathVariable String eventCode, @PathVariable long participantId) {
         eventService.eventEnrollment(eventCode, participantId);
     }
+
+    @PostMapping("/{code}/finish-enroll")
+    public void eventFinishEnroll(@PathVariable String code) {
+        eventService.eventFinishEnroll(code);
+    }
 }

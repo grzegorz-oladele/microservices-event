@@ -82,4 +82,10 @@ public class EventValidator {
             throw new EventException(EventError.PARTICIPANT_NOT_ACTIVE);
         }
     }
+
+    protected void validateInactiveCourse(Event event) {
+        if (Event.Status.INACTIVE.equals(event.getStatus())) {
+            throw new EventException(EventError.EVENT_IS_INACTIVE);
+        }
+    }
 }

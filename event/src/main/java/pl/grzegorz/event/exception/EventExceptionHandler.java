@@ -24,7 +24,8 @@ public class EventExceptionHandler {
                 || EventError.PARTICIPANT_NOT_ACTIVE.equals(e.getEventError())) {
             httpStatus = HttpStatus.BAD_REQUEST;
         }
-        if (EventError.PARTICIPANT_ALREADY_ENROLLED.equals(e.getEventError())) {
+        if (EventError.PARTICIPANT_ALREADY_ENROLLED.equals(e.getEventError())
+                || EventError.EVENT_IS_INACTIVE.equals(e.getEventError())) {
             httpStatus = HttpStatus.CONFLICT;
         }
         return ResponseEntity.status(httpStatus).body(new ErrorEventInfo(e.getEventError().getMessage()));

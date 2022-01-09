@@ -11,7 +11,8 @@ public enum EventError {
     EVENT_BAD_DATA("Start date must be earlier than the end date"),
     EVENT_NOT_ACTIVE("Registration for the event is not impossible at this time. Event is not active"),
     PARTICIPANT_ALREADY_ENROLLED("Participant already enrolled on this event"),
-    PARTICIPANT_NOT_ACTIVE("Participant is not active");
+    PARTICIPANT_NOT_ACTIVE("Participant is not active"),
+    EVENT_IS_INACTIVE("Event is inactive");
 
     private final String message;
 
