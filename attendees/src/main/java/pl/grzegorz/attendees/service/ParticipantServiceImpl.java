@@ -3,6 +3,8 @@ package pl.grzegorz.attendees.service;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.attendees.dto.ParticipantDto;
 import pl.grzegorz.attendees.dto.ParticipantDtoInfo;
+import pl.grzegorz.attendees.exception.ParticipantError;
+import pl.grzegorz.attendees.exception.ParticipantException;
 import pl.grzegorz.attendees.mapper.ParticipantMapper;
 import pl.grzegorz.attendees.model.ParticipantEntity;
 import pl.grzegorz.attendees.repository.ParticipantRepository;
@@ -26,7 +28,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public ParticipantDtoInfo getParticipantById(long id) {
-        ParticipantEntity participantEntity = participantValidator.validateNotFound(id);
+        ParticipantEntity participantEntity = getParticipantEntity(id);
         return participantMapper.fromEntityToDtoInfo(participantEntity);
     }
 
@@ -38,7 +40,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public List<ParticipantDtoInfo> getAllActiveParticipants() {
-        List<ParticipantEntity> participantEntityList = participantRepository.findAll();
+        List<ParticipantEntity> participantEntityList = getParticipantsList();
         participantValidator.validateEmptyList(participantEntityList);
         return toActiveParticipantDtoInfoList(participantEntityList);
     }
@@ -46,7 +48,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public ParticipantDtoInfo addParticipant(ParticipantDto participantDto) {
         participantValidator.validateParticipantDto(participantDto);
-        participantValidator.validateParticipantEmail(participantDto.getEmail());
+        participantValidator.validateParticipantEmail(participantDto.getEmail(), getParticipantsList());
         ParticipantEntity participantEntity = participantMapper.fromDtoToEntity(participantDto);
         participantEntity.setActive(true);
         participantRepository.save(participantEntity);
@@ -55,7 +57,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public ParticipantDtoInfo editCompany(long id, ParticipantDto participantDto) {
-        ParticipantEntity participantEntity = participantValidator.validateNotFound(id);
+        ParticipantEntity participantEntity = getParticipantEntity(id);
         participantValidator.validateEditCompany(participantDto);
         participantEntity.setId(id);
         participantEntity.setCompany(participantDto.getCompany());
@@ -64,7 +66,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public ParticipantDtoInfo editLastName(long id, ParticipantDto participantDto) {
-        ParticipantEntity participantEntity = participantValidator.validateNotFound(id);
+        ParticipantEntity participantEntity = getParticipantEntity(id);
         participantValidator.validateEditLastName(participantDto);
         participantEntity.setId(id);
         participantEntity.setLastName(participantDto.getLastName());
@@ -73,8 +75,17 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public void removeParticipantById(long id) {
-        ParticipantEntity participantEntity = participantValidator.validateNotFound(id);
+        ParticipantEntity participantEntity = getParticipantEntity(id);
         participantRepository.delete(participantEntity);
+    }
+
+    private List<ParticipantEntity> getParticipantsList() {
+        return participantRepository.findAll();
+    }
+
+    private ParticipantEntity getParticipantEntity(long id) {
+        return participantRepository.findById(id)
+                .orElseThrow(() -> new ParticipantException(ParticipantError.PARTICIPANT_NOT_FOUND));
     }
 
     private List<ParticipantDtoInfo> toActiveParticipantDtoInfoList(List<ParticipantEntity> list) {

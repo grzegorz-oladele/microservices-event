@@ -5,24 +5,12 @@ import pl.grzegorz.attendees.dto.ParticipantDto;
 import pl.grzegorz.attendees.exception.ParticipantError;
 import pl.grzegorz.attendees.exception.ParticipantException;
 import pl.grzegorz.attendees.model.ParticipantEntity;
-import pl.grzegorz.attendees.repository.ParticipantRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class ParticipantValidator {
-
-    private final ParticipantRepository participantRepository;
-
-    public ParticipantValidator(ParticipantRepository participantRepository) {
-        this.participantRepository = participantRepository;
-    }
-
-    protected ParticipantEntity validateNotFound(long id) {
-        return participantRepository.findById(id)
-                .orElseThrow(() -> new ParticipantException(ParticipantError.PARTICIPANT_NOT_FOUND));
-    }
 
     protected void validateEmptyList(List<ParticipantEntity> list) {
         if (list.isEmpty()) {
@@ -48,8 +36,7 @@ public class ParticipantValidator {
         }
     }
 
-    protected void validateParticipantEmail(String emailValue) {
-        List<ParticipantEntity> participants = participantRepository.findAll();
+    protected void validateParticipantEmail(String emailValue, List<ParticipantEntity> participants) {
         List<String> participantsEmails = participantsEmail(participants);
         participantsEmails.stream()
                 .filter(participantsEmail -> participantsEmail.equals(emailValue))
