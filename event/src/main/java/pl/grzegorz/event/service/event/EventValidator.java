@@ -3,7 +3,7 @@ package pl.grzegorz.event.service.event;
 import org.springframework.stereotype.Component;
 import pl.grzegorz.event.exception.EventError;
 import pl.grzegorz.event.exception.EventException;
-import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.EventDto;
 import pl.grzegorz.event.model.dto.Participant;
 
 import java.util.List;
@@ -11,13 +11,13 @@ import java.util.List;
 @Component
 public class EventValidator {
 
-    protected void validateEmptyList(List<Event> list) {
+    protected void validateEmptyList(List<EventDto> list) {
         if (list.isEmpty()) {
             throw new EventException(EventError.EVENT_EMPTY_LIST);
         }
     }
 
-    protected void validateAlreadyExist(String code, List<Event> eventList) {
+    protected void validateAlreadyExist(String code, List<EventDto> eventList) {
         eventList
                 .stream()
                 .filter(event -> event.getCode().equals(code))
@@ -26,44 +26,32 @@ public class EventValidator {
                 });
     }
 
-    protected void validateParticipantsLimit(long newLimit, Event event) {
+    protected void validateParticipantsLimit(long newLimit, EventDto event) {
         if (newLimit <= 0 || newLimit < event.getParticipantsNumber() ||
                 event.getParticipantsLimit() < event.getParticipantsNumber()) {
             throw new EventException(EventError.EVENT_BAD_LIMIT);
         }
     }
 
-    protected void validateMaxParticipantNumber(Event event) {
+    protected void validateMaxParticipantNumber(EventDto event) {
         if (event.getParticipantsNumber() >= event.getParticipantsLimit()) {
             throw new EventException(EventError.EVENT_MAX_PARTICIPANT_NUMBER);
         }
     }
 
-    protected void validateFullStatus(Event event) {
-        if (event.getParticipantsLimit().equals(event.getParticipantsNumber())) {
-            event.setStatus(Event.Status.FULL);
-        }
-    }
-
-    protected void validateDescription(String description) {
-        if (description == null || description.equals("") || !description.matches("(.|\\s)*\\S(.|\\s)*")) {
-            throw new EventException(EventError.EVENT_BAD_DESCRIPTION);
-        }
-    }
-
-    protected void validateDate(Event event) {
+    protected void validateDate(EventDto event) {
         if (event.getStartDate().isAfter(event.getEndDate())) {
             throw new EventException(EventError.EVENT_BAD_DATA);
         }
     }
 
-    protected void validateEventActive(Event event) {
-        if (!Event.Status.ACTIVE.equals(event.getStatus())) {
+    protected void validateEventActive(EventDto event) {
+        if (!EventDto.Status.ACTIVE.equals(event.getStatus())) {
             throw new EventException(EventError.EVENT_NOT_ACTIVE);
         }
     }
 
-    protected void validateParticipantEnrolled(Event event, Participant participant) {
+    protected void validateParticipantEnrolled(EventDto event, Participant participant) {
         if(event.getEventMembers()
                 .stream()
                 .anyMatch(member -> participant.getEmail().equals(member.getEmail()))) {
@@ -71,9 +59,9 @@ public class EventValidator {
         }
     }
 
-    protected void setEventFullStatus(Event event) {
+    protected void setEventFullStatus(EventDto event) {
         if (event.getParticipantsNumber().equals(event.getParticipantsLimit())) {
-            event.setStatus(Event.Status.FULL);
+            event.setStatus(EventDto.Status.FULL);
         }
     }
 
@@ -83,8 +71,8 @@ public class EventValidator {
         }
     }
 
-    protected void validateInactiveCourse(Event event) {
-        if (Event.Status.INACTIVE.equals(event.getStatus())) {
+    protected void validateInactiveCourse(EventDto event) {
+        if (EventDto.Status.INACTIVE.equals(event.getStatus())) {
             throw new EventException(EventError.EVENT_IS_INACTIVE);
         }
     }

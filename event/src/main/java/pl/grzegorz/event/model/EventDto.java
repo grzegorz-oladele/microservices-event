@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document
-public class Event {
+public class EventDto {
 
     public enum Status {
 

@@ -1,7 +1,7 @@
 package pl.grzegorz.event.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.EventDto;
 import pl.grzegorz.event.model.dto.Participant;
 import pl.grzegorz.event.service.event.EventService;
 
@@ -18,12 +18,12 @@ public class EventController {
     }
 
     @GetMapping
-    public List<Event> getAllEvents(@RequestParam (required = false) Event.Status status) {
+    public List<EventDto> getAllEvents(@RequestParam (required = false) EventDto.Status status) {
         return eventService.getAllEvents(status);
     }
 
     @GetMapping("/{code}")
-    public Event getEventByCode(@PathVariable String code) {
+    public EventDto getEventByCode(@PathVariable String code) {
         return eventService.getEventByCode(code);
     }
 
@@ -33,18 +33,18 @@ public class EventController {
     }
 
     @PostMapping
-    public Event addEvent(@RequestBody Event event) {
-        return eventService.addEvent(event);
+    public EventDto addEvent(@RequestBody EventDto eventDto) {
+        return eventService.addEvent(eventDto);
     }
 
     @PatchMapping("/edit-limit/{code}")
-    public Event editCode(@PathVariable String code, @RequestBody Event event) {
-        return eventService.editParticipantsLimit(code, event);
+    public EventDto editCode(@PathVariable String code, @RequestBody EventDto eventDto) {
+        return eventService.editParticipantsLimit(code, eventDto);
     }
 
     @PatchMapping("/edit-description/{code}")
-    public Event editDescription(@PathVariable String code, @RequestBody Event event) {
-        return eventService.editDescription(code, event);
+    public EventDto editDescription(@PathVariable String code, @RequestBody EventDto eventDto) {
+        return eventService.editDescription(code, eventDto);
     }
 
     @DeleteMapping("/{code}")

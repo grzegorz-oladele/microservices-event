@@ -1,21 +1,21 @@
 package pl.grzegorz.event.service.event;
 
-import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.EventDto;
 import pl.grzegorz.event.model.dto.Participant;
 
 import java.util.List;
 
 public interface EventService {
 
-    List<Event> getAllEvents(Event.Status status);
+    List<EventDto> getAllEvents(EventDto.Status status);
 
-    Event getEventByCode(String code);
+    EventDto getEventByCode(String code);
 
-    Event addEvent(Event event);
+    EventDto addEvent(EventDto event);
 
-    Event editParticipantsLimit(String code, Event event);
+    EventDto editParticipantsLimit(String code, EventDto event);
 
-    Event editDescription(String code, Event event);
+    EventDto editDescription(String code, EventDto event);
 
     void removeEventByCode(String code);
 

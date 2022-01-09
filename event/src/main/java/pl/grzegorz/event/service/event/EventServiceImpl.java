@@ -4,7 +4,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.event.exception.EventError;
 import pl.grzegorz.event.exception.EventException;
-import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.EventDto;
 import pl.grzegorz.event.model.EventMember;
 import pl.grzegorz.event.model.dto.NotificationInfoDto;
 import pl.grzegorz.event.model.dto.Participant;
@@ -32,42 +32,42 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEvents(Event.Status status) {
+    public List<EventDto> getAllEvents(EventDto.Status status) {
         if (status == null) {
-            List<Event> eventList = eventRepository.findAll();
+            List<EventDto> eventList = eventRepository.findAll();
             eventValidator.validateEmptyList(eventList);
             return eventList;
         } else {
-            List<Event> eventListByStatus = eventRepository.findAllByStatus(status);
+            List<EventDto> eventListByStatus = eventRepository.findAllByStatus(status);
             eventValidator.validateEmptyList(eventListByStatus);
             return eventListByStatus;
         }
     }
 
     @Override
-    public Event getEventByCode(String code) {
+    public EventDto getEventByCode(String code) {
         return getEvent(code);
     }
 
     @Override
-    public Event addEvent(Event event) {
-        List<Event> eventList = eventRepository.findAll();
+    public EventDto addEvent(EventDto event) {
+        List<EventDto> eventList = eventRepository.findAll();
         eventValidator.validateAlreadyExist(event.getCode(), eventList);
         eventValidator.validateDate(event);
         return eventRepository.save(event);
     }
 
     @Override
-    public Event editParticipantsLimit(String code, Event event) {
-        Event event1 = getEvent(code);
+    public EventDto editParticipantsLimit(String code, EventDto event) {
+        EventDto event1 = getEvent(code);
         eventValidator.validateParticipantsLimit(event.getParticipantsLimit(), event1);
         event1.setParticipantsLimit(event.getParticipantsLimit());
         return event1;
     }
 
     @Override
-    public Event editDescription(String code, Event event) {
-        Event event1 = getEvent(code);
+    public EventDto editDescription(String code, EventDto event) {
+        EventDto event1 = getEvent(code);
         event1.setDescription(event.getDescription());
         eventRepository.save(event1);
         return event1;
@@ -75,13 +75,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void removeEventByCode(String code) {
-        Event event = getEvent(code);
+        EventDto event = getEvent(code);
         eventRepository.delete(event);
     }
 
     @Override
     public void eventEnrollment(String eventCode, long participantId) {
-        Event event = getEvent(eventCode);
+        EventDto event = getEvent(eventCode);
         eventValidator.validateEventActive(event);
         Participant participant = participantServiceClient.getParticipantById(participantId);
         eventValidator.validateParticipantEnrolled(event, participant);
@@ -95,16 +95,16 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Participant> getEventMembers(String eventCode) {
-        Event event = getEvent(eventCode);
+        EventDto event = getEvent(eventCode);
         List<String> emailsCourseMembers = getEmailsEventMembers(event);
         return participantServiceClient.getParticipantsByEmailList(emailsCourseMembers);
     }
 
     @Override
     public void eventFinishEnroll(String eventCode) {
-        Event event = getEvent(eventCode);
+        EventDto event = getEvent(eventCode);
         eventValidator.validateInactiveCourse(event);
-        event.setStatus(Event.Status.INACTIVE);
+        event.setStatus(EventDto.Status.INACTIVE);
         eventRepository.save(event);
         List<String> emailsCourseMembers = getEmailsEventMembers(event);
         NotificationInfoDto notificationInfoDto = new NotificationInfoDto();
@@ -117,12 +117,12 @@ public class EventServiceImpl implements EventService {
         rabbitTemplate.convertAndSend(QUEUE_ENROLL_FINISH, notificationInfoDto);
     }
 
-    private Event getEvent(String code) {
+    private EventDto getEvent(String code) {
         return eventRepository.findById(code)
                 .orElseThrow(() -> new EventException(EventError.EVENT_NOT_FOUND));
     }
 
-    private List<String> getEmailsEventMembers(Event event) {
+    private List<String> getEmailsEventMembers(EventDto event) {
         return event.getEventMembers()
                 .stream()
                 .map(EventMember::getEmail)
