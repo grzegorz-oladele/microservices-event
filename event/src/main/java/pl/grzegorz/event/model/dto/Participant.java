@@ -6,7 +6,7 @@ public class Participant {
     private String firstName;
     private String lastName;
     private String email;
-    private int age;
+    private boolean isActive;
     private String company;
 
     public long getId() {
@@ -41,12 +41,12 @@ public class Participant {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getCompany() {

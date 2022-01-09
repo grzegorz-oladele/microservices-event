@@ -19,8 +19,13 @@ public class EventExceptionHandler {
                 || EventError.EVENT_ALREADY_EXIST.equals(e.getEventError())
                 || EventError.EVENT_BAD_DESCRIPTION.equals(e.getEventError())
                 || EventError.EVENT_MAX_PARTICIPANT_NUMBER.equals(e.getEventError())
-                || EventError.EVENT_BAD_DATA.equals(e.getEventError())) {
+                || EventError.EVENT_BAD_DATA.equals(e.getEventError())
+                || EventError.EVENT_NOT_ACTIVE.equals(e.getEventError())
+                || EventError.PARTICIPANT_NOT_ACTIVE.equals(e.getEventError())) {
             httpStatus = HttpStatus.BAD_REQUEST;
+        }
+        if (EventError.PARTICIPANT_ALREADY_ENROLLED.equals(e.getEventError())) {
+            httpStatus = HttpStatus.CONFLICT;
         }
         return ResponseEntity.status(httpStatus).body(new ErrorEventInfo(e.getEventError().getMessage()));
     }

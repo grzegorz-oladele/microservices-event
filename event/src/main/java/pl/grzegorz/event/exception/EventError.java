@@ -8,7 +8,10 @@ public enum EventError {
     EVENT_BAD_LIMIT("Limit of participants must be greater than 0"),
     EVENT_BAD_DESCRIPTION("Bad description"),
     EVENT_MAX_PARTICIPANT_NUMBER("The number of participants is full. Enrollment closed"),
-    EVENT_BAD_DATA("Start date must be earlier than the end date");
+    EVENT_BAD_DATA("Start date must be earlier than the end date"),
+    EVENT_NOT_ACTIVE("Registration for the event is not impossible at this time. Event is not active"),
+    PARTICIPANT_ALREADY_ENROLLED("Participant already enrolled on this event"),
+    PARTICIPANT_NOT_ACTIVE("Participant is not active");
 
     private final String message;
 

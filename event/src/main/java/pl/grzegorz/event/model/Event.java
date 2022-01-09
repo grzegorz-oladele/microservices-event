@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class Event {
@@ -21,6 +23,7 @@ public class Event {
     private String name;
     private String description;
     private Status status = Status.ACTIVE;
+    private List<EventMember> eventMembers = new ArrayList<>();
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Long participantsLimit;
@@ -88,5 +91,13 @@ public class Event {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<EventMember> getEventMembers() {
+        return eventMembers;
+    }
+
+    public void setEventMembers(List<EventMember> eventMembers) {
+        this.eventMembers = eventMembers;
     }
 }

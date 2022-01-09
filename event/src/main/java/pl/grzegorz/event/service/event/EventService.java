@@ -17,4 +17,6 @@ public interface EventService {
     Event editDescription(String code, Event event);
 
     void removeEventByCode(String code);
+
+    void eventEnrollment(String eventCode, long participantId);
 }

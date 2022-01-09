@@ -46,4 +46,8 @@ public class EventController {
         eventService.removeEventByCode(code);
     }
 
+    @PostMapping("/{eventCode}/participant/{participantId}")
+    public void participantEnrollmentOnEvent(@PathVariable String eventCode, @PathVariable long participantId) {
+        eventService.eventEnrollment(eventCode, participantId);
+    }
 }

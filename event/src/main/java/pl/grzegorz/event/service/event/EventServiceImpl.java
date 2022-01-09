@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service;
 import pl.grzegorz.event.exception.EventError;
 import pl.grzegorz.event.exception.EventException;
 import pl.grzegorz.event.model.Event;
+import pl.grzegorz.event.model.EventMember;
+import pl.grzegorz.event.model.dto.Participant;
 import pl.grzegorz.event.repository.EventRepository;
+import pl.grzegorz.event.service.participant.ParticipantServiceClient;
 
 import java.util.List;
 
@@ -13,10 +16,12 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final EventValidator eventValidator;
+    private final ParticipantServiceClient participantServiceClient;
 
-    public EventServiceImpl(EventRepository eventRepository, EventValidator eventValidator) {
+    public EventServiceImpl(EventRepository eventRepository, EventValidator eventValidator, ParticipantServiceClient participantServiceClient) {
         this.eventRepository = eventRepository;
         this.eventValidator = eventValidator;
+        this.participantServiceClient = participantServiceClient;
     }
 
     @Override
@@ -66,6 +71,21 @@ public class EventServiceImpl implements EventService {
         Event event = getEvent(code);
         event.setStatus(Event.Status.INACTIVE);
         eventRepository.save(event);
+    }
+
+    @Override
+    public void eventEnrollment(String eventCode, long participantId) {
+        Event event = getEvent(eventCode);
+        eventValidator.validateEventActive(event);
+        Participant participant = participantServiceClient.getParticipantById(participantId);
+        eventValidator.validateParticipantEnrolled(event, participant);
+        eventRepository.save(event);
+        eventValidator.validateActiveParticipant(participant);
+        event.getEventMembers().add(new EventMember(participant.getFirstName(),
+                participant.getLastName(), participant.getEmail()));
+        event.setParticipantsNumber(event.getParticipantsNumber() + 1);
+        eventRepository.save(event);
+        eventValidator.setEventFullStatus(event);
     }
 
     private Event getEvent(String code) {
