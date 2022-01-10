@@ -27,11 +27,6 @@ public class ParticipantController {
         return participantService.getAllActiveParticipants();
     }
 
-    @PostMapping("/emails")
-    public List<ParticipantDtoInfo> getParticipantsByEmailList(@RequestBody List<String> emails) {
-        return participantService.getParticipantsByEmails(emails);
-    }
-
     @PostMapping
     public ParticipantDtoInfo addParticipant(@RequestBody ParticipantDto participantDto) {
         return participantService.addParticipant(participantDto);

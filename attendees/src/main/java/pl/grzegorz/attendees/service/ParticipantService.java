@@ -9,8 +9,6 @@ public interface ParticipantService {
 
     ParticipantDtoInfo getParticipantById(long id);
 
-    List<ParticipantDtoInfo> getParticipantsByEmails(List<String> emails);
-
     List<ParticipantDtoInfo> getAllActiveParticipants();
 
     ParticipantDtoInfo addParticipant(ParticipantDto participantDto);
