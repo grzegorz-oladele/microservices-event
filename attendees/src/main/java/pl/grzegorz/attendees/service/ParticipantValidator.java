@@ -11,7 +11,13 @@ import java.util.stream.Collectors;
 @Component
 public class ParticipantValidator {
 
-    protected void validateEmptyList(List<ParticipantEntity> list) {
+    protected void validateEmptyEntityList(List<ParticipantEntity> list) {
+        if (list.isEmpty()) {
+            throw new ParticipantException(ParticipantError.PARTICIPANT_EMPTY_LIST);
+        }
+    }
+
+    protected void validateEmptyEmailList(List<String> list) {
         if (list.isEmpty()) {
             throw new ParticipantException(ParticipantError.PARTICIPANT_EMPTY_LIST);
         }

@@ -4,15 +4,11 @@ import javax.validation.constraints.NotBlank;
 
 public class ParticipantDto {
 
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotBlank
     private String email;
-    @NotBlank
     private int age;
-    @NotBlank
+    private boolean isActive;
     private String company;
 
     public String getFirstName() {
@@ -53,5 +49,13 @@ public class ParticipantDto {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

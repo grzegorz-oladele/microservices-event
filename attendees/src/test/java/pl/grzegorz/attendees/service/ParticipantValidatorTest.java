@@ -8,6 +8,7 @@ import pl.grzegorz.attendees.model.ParticipantEntity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -16,34 +17,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParticipantValidatorTest {
 
     @Test
-    void shouldThrowParticipantExceptionWhenParticipantListIsEmpty() {
-//        given
+    void shouldThrowParticipantExceptionWhenEntityListIsEmpty() {
+        //        given
         List<ParticipantEntity> participantList = Collections.emptyList();
         ParticipantValidator participantValidator = new ParticipantValidator();
-//        when + then
-        assertThrows(ParticipantException.class, () -> participantValidator.validateEmptyList(participantList));
+        //        when + then
+        assertThrows(ParticipantException.class, () -> participantValidator.validateEmptyEntityList(participantList));
         assertThat("Participants according to your parameters not found",
                 is(ParticipantError.PARTICIPANT_EMPTY_LIST.getMessage()));
     }
 
     @Test
-    void shouldReturnAMessageWhenTheListIsNotEmpty() {
-//        given
+    void shouldReturnAMessageWhenTheEntityListIsNotEmpty() {
+        //        given
         List<ParticipantEntity> participantList = getParticipantList();
         ParticipantValidator participantValidator = new ParticipantValidator();
-//        when
-        participantValidator.validateEmptyList(participantList);
-//        then
+        //        when
+        participantValidator.validateEmptyEntityList(participantList);
+        //        then
         System.out.println("The validateEmptyList() method did not throw an exception. The test passed");
     }
 
     @Test
     void shouldThrowParticipantExceptionWhenTheSpecifiedEmailIsInTheList() {
-//        given
+        //        given
         List<ParticipantEntity> participantEntityList = getParticipantList();
         String email = "jacek.jackowski@123.com";
         ParticipantValidator participantValidator = new ParticipantValidator();
-//        when + then
+        //        when + then
         assertThrows(ParticipantException.class,
                 () -> participantValidator.validateParticipantEmail(email, participantEntityList));
         assertThat("The user with the specified email address is already in the application. Select a different " +
@@ -56,10 +57,32 @@ class ParticipantValidatorTest {
         List<ParticipantEntity> participantEntityList = getParticipantList();
         String email = "bartek.bartkowski@123.com";
         ParticipantValidator participantValidator = new ParticipantValidator();
-//        when
+        //        when
         participantValidator.validateParticipantEmail(email, participantEntityList);
-//        then
+        //        then
         System.out.println("The validateParticipantEmail() method did not throw an exception. The test passed");
+    }
+
+    @Test
+    void shouldThrowParticipantExceptionWhenListOfEmailsIsEmpty() {
+        //        given
+        List<String> emails = Collections.emptyList();
+        ParticipantValidator participantValidator = new ParticipantValidator();
+        //        when + then
+        assertThrows(ParticipantException.class, () -> participantValidator.validateEmptyEmailList(emails));
+        assertThat("Participants according to your parameters not found",
+                is(ParticipantError.PARTICIPANT_EMPTY_LIST.getMessage()));
+    }
+
+    @Test
+    void shouldReturnAMessageWhenTheEmailListIsNotEmpty() {
+        //        given
+        List<String> emails = getListOfEmails();
+        ParticipantValidator participantValidator = new ParticipantValidator();
+        //        when
+        participantValidator.validateEmptyEmailList(emails);
+        //        then
+        System.out.println("The validateEmptyEmailList() method did not throw an exception. The test passed");
     }
 
     private List<ParticipantEntity> getParticipantList() {
@@ -89,5 +112,12 @@ class ParticipantValidatorTest {
         participantEntityList.add(participant2);
         participantEntityList.add(participant3);
         return participantEntityList;
+    }
+
+    private List<String> getListOfEmails() {
+        return getParticipantList()
+                .stream()
+                .map(ParticipantEntity::getEmail)
+                .collect(Collectors.toList());
     }
 }
