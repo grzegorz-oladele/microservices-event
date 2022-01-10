@@ -1,14 +1,11 @@
 package pl.grzegorz.attendees.dto;
 
-import javax.validation.constraints.NotBlank;
-
 public class ParticipantDto {
 
     private String firstName;
     private String lastName;
     private String email;
     private int age;
-    private boolean isActive;
     private String company;
 
     public String getFirstName() {
@@ -51,11 +48,4 @@ public class ParticipantDto {
         this.company = company;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }
