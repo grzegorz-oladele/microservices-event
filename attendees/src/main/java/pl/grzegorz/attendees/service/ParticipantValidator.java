@@ -18,7 +18,7 @@ public class ParticipantValidator {
     }
 
     protected void validateParticipantEmail(String emailValue, List<ParticipantEntity> participants) {
-        List<String> participantsEmails = participantsEmail(participants);
+        List<String> participantsEmails = getParticipantsEmail(participants);
         participantsEmails.stream()
                 .filter(participantsEmail -> participantsEmail.equals(emailValue))
                 .forEach(participantsEmail -> {
@@ -26,7 +26,7 @@ public class ParticipantValidator {
         });
     }
 
-    private List<String> participantsEmail(List<ParticipantEntity> participants) {
+    private List<String> getParticipantsEmail(List<ParticipantEntity> participants) {
         return participants
                 .stream()
                 .map(ParticipantEntity::getEmail)

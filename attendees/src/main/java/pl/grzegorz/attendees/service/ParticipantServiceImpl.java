@@ -47,7 +47,6 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public ParticipantDtoInfo addParticipant(ParticipantDto participantDto) {
-        participantValidator.validateParticipantDto(participantDto);
         participantValidator.validateParticipantEmail(participantDto.getEmail(), getParticipantsList());
         ParticipantEntity participantEntity = participantMapper.fromDtoToEntity(participantDto);
         participantEntity.setActive(true);
@@ -58,7 +57,6 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public ParticipantDtoInfo editCompany(long id, ParticipantDto participantDto) {
         ParticipantEntity participantEntity = getParticipantEntity(id);
-        participantValidator.validateEditCompany(participantDto);
         participantEntity.setId(id);
         participantEntity.setCompany(participantDto.getCompany());
         return participantMapper.fromEntityToDtoInfo(participantEntity);
@@ -67,7 +65,6 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public ParticipantDtoInfo editLastName(long id, ParticipantDto participantDto) {
         ParticipantEntity participantEntity = getParticipantEntity(id);
-        participantValidator.validateEditLastName(participantDto);
         participantEntity.setId(id);
         participantEntity.setLastName(participantDto.getLastName());
         return participantMapper.fromEntityToDtoInfo(participantEntity);
