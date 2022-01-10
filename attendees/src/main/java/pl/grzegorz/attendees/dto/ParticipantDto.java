@@ -1,11 +1,18 @@
 package pl.grzegorz.attendees.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class ParticipantDto {
 
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
     private String email;
+    @NotBlank
     private int age;
+    @NotBlank
     private String company;
 
     public String getFirstName() {
