@@ -4,11 +4,9 @@ import org.junit.jupiter.api.Test;
 import pl.grzegorz.event.exception.EventError;
 import pl.grzegorz.event.exception.EventException;
 import pl.grzegorz.event.model.EventDto;
-import pl.grzegorz.event.model.EventMember;
 import pl.grzegorz.event.model.dto.Participant;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -272,61 +270,8 @@ class EventValidatorTest {
         System.out.println("The validateInactiveEvent() method did not throw an exception. The test passed");
     }
 
-
     private List<EventDto> getListOfEvents() {
-        List<EventDto> list = new ArrayList<>();
-        EventDto eventDto1 = new EventDto();
-        eventDto1.setCode("Team-building");
-        eventDto1.setDescription("The best team building in history of our company");
-        eventDto1.setParticipantsLimit(20L);
-        eventDto1.setParticipantsNumber(0L);
-        eventDto1.setStartDate(LocalDateTime.parse("2022-01-24T10:00:00.00"));
-        eventDto1.setEndDate(LocalDateTime.parse("2022-01-25T16:00:00.00"));
-        eventDto1.setStatus(EventDto.Status.ACTIVE);
-        eventDto1.setEventMembers(listOfEventMembers());
-
-        EventDto eventDto2 = new EventDto();
-        eventDto2.setCode("25th-anniversary");
-        eventDto2.setDescription("25th Anniversary Party");
-        eventDto2.setParticipantsLimit(200L);
-        eventDto2.setParticipantsNumber(0L);
-        eventDto2.setStartDate(LocalDateTime.parse("2022-03-13T19:00:00.00"));
-        eventDto2.setEndDate(LocalDateTime.parse("2022-03-14T06:00:00.00"));
-        eventDto2.setStatus(EventDto.Status.INACTIVE);
-
-        EventDto eventDto3 = new EventDto();
-        eventDto3.setCode("Sal-2022");
-        eventDto3.setDescription("Training in sales closing techniques");
-        eventDto3.setParticipantsLimit(10L);
-        eventDto3.setParticipantsNumber(0L);
-        eventDto3.setStartDate(LocalDateTime.parse("2022-02-10T10:00:00.00"));
-        eventDto3.setEndDate(LocalDateTime.parse("2022-02-10T18:00:00.00"));
-        eventDto3.setStatus(EventDto.Status.FULL);
-
-        EventDto eventDto4 = new EventDto();
-        eventDto4.setCode("Tre-2022");
-        eventDto4.setDescription("Training event");
-        eventDto4.setParticipantsLimit(1L);
-        eventDto4.setParticipantsNumber(1L);
-        eventDto4.setStartDate(LocalDateTime.parse("2022-07-13T10:00:00.00"));
-        eventDto4.setEndDate(LocalDateTime.parse("2022-07-14T18:00:00.00"));
-        eventDto4.setStatus(EventDto.Status.ACTIVE);
-
-        list.add(eventDto1);
-        list.add(eventDto2);
-        list.add(eventDto3);
-        list.add(eventDto4);
-
-        return list;
-    }
-
-    private List<EventMember> listOfEventMembers() {
-        List<EventMember> list = new ArrayList<>();
-        EventMember eventMember = new EventMember("tomasz.tomaszewski@123.com");
-        EventMember eventMember2 = new EventMember("grzegorz.grzegorzewski@123.com");
-
-        list.add(eventMember);
-        list.add(eventMember2);
-        return list;
+        PrepareEventData eventPrepareData = new PrepareEventData();
+        return eventPrepareData.getListOfEvents();
     }
 }
