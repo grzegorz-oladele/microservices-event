@@ -5,7 +5,8 @@ public enum EventError {
     EVENT_EMPTY_LIST("Events according to your parameters not found"),
     EVENT_NOT_FOUND("Event not found"),
     EVENT_ALREADY_EXIST("Event already exist"),
-    EVENT_BAD_LIMIT("Limit of participants must be greater than 0"),
+    EVENT_BAD_LIMIT("Limit of participants must be greater than 0 or less if number of participants is greater " +
+            "than 0"),
     EVENT_BAD_DESCRIPTION("Bad description"),
     EVENT_MAX_PARTICIPANT_NUMBER("The number of participants is full. Enrollment closed"),
     EVENT_BAD_DATA("Start date must be earlier than the end date"),

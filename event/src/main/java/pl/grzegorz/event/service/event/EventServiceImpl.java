@@ -103,7 +103,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public void eventFinishEnroll(String eventCode) {
         EventDto event = getEvent(eventCode);
-        eventValidator.validateInactiveCourse(event);
+        eventValidator.validateInactiveEvent(event);
         event.setStatus(EventDto.Status.INACTIVE);
         eventRepository.save(event);
         List<String> emailsCourseMembers = getEmailsEventMembers(event);

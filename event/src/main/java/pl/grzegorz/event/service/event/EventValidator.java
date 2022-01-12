@@ -71,7 +71,7 @@ public class EventValidator {
         }
     }
 
-    protected void validateInactiveCourse(EventDto event) {
+    protected void validateInactiveEvent(EventDto event) {
         if (EventDto.Status.INACTIVE.equals(event.getStatus())) {
             throw new EventException(EventError.EVENT_IS_INACTIVE);
         }
