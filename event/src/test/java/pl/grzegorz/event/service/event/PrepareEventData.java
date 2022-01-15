@@ -2,6 +2,7 @@ package pl.grzegorz.event.service.event;
 
 import pl.grzegorz.event.model.EventDto;
 import pl.grzegorz.event.model.EventMember;
+import pl.grzegorz.event.model.dto.Participant;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,10 +49,22 @@ public class PrepareEventData {
         eventDto4.setEndDate(LocalDateTime.parse("2022-07-14T18:00:00.00"));
         eventDto4.setStatus(EventDto.Status.ACTIVE);
 
+        EventDto eventDto5 = new EventDto();
+        List<EventMember> listOfMembers = new ArrayList<>();
+        eventDto5.setCode("CSR-0809");
+        eventDto5.setDescription("CSR event");
+        eventDto5.setParticipantsLimit(1L);
+        eventDto5.setParticipantsNumber(0L);
+        eventDto5.setStartDate(LocalDateTime.parse("2022-05-23T13:00:00.00"));
+        eventDto5.setEndDate(LocalDateTime.parse("2022-05-23T15:00:00.00"));
+        eventDto5.setStatus(EventDto.Status.ACTIVE);
+        eventDto5.setEventMembers(listOfMembers);
+
         list.add(eventDto1);
         list.add(eventDto2);
         list.add(eventDto3);
         list.add(eventDto4);
+        list.add(eventDto5);
 
         return list;
     }
@@ -64,5 +77,16 @@ public class PrepareEventData {
         list.add(eventMember);
         list.add(eventMember2);
         return list;
+    }
+
+    protected Participant getParticipant() {
+        Participant participant = new Participant();
+        participant.setId(1);
+        participant.setFirstName("Andrzej");
+        participant.setLastName("Andrzejewski");
+        participant.setEmail("andrzej.andrzejewski@123.com");
+        participant.setActive(true);
+        participant.setCompany("Facebook");
+        return participant;
     }
 }

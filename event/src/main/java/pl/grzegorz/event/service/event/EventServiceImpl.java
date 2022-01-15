@@ -61,6 +61,7 @@ public class EventServiceImpl implements EventService {
     public EventDto editParticipantsLimit(String code, EventDto event) {
         EventDto event1 = getEvent(code);
         eventValidator.validateParticipantsLimit(event.getParticipantsLimit(), event1);
+        event1.setCode(code);
         event1.setParticipantsLimit(event.getParticipantsLimit());
         return event1;
     }
@@ -68,6 +69,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto editDescription(String code, EventDto event) {
         EventDto event1 = getEvent(code);
+        event1.setCode(code);
         event1.setDescription(event.getDescription());
         eventRepository.save(event1);
         return event1;
