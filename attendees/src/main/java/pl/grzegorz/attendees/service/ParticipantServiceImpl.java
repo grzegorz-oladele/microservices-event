@@ -53,6 +53,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         ParticipantEntity participantEntity = getParticipantEntity(id);
         participantEntity.setId(id);
         participantEntity.setCompany(participantDto.getCompany());
+        participantRepository.save(participantEntity);
         return participantMapper.fromEntityToDtoInfo(participantEntity);
     }
 
@@ -61,6 +62,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         ParticipantEntity participantEntity = getParticipantEntity(id);
         participantEntity.setId(id);
         participantEntity.setLastName(participantDto.getLastName());
+        participantRepository.save(participantEntity);
         return participantMapper.fromEntityToDtoInfo(participantEntity);
     }
 

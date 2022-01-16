@@ -19,25 +19,25 @@ import static org.mockito.Mockito.mock;
 class ParticipantServiceImplTest {
 
     @Test
-    void shouldReturnAndSetActiveAsTrueInParticipantEntity() {
+    void shouldSetActiveAsTrueInParticipantEntity() {
 //        given
-        var participantRepository = mock(ParticipantRepository.class);
-        var participantValidator = new ParticipantValidator();
-        var participantMapper = new ParticipantMapper();
-        var participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
+        ParticipantRepository participantRepository = mock(ParticipantRepository.class);
+        ParticipantValidator participantValidator = new ParticipantValidator();
+        ParticipantMapper participantMapper = new ParticipantMapper();
+        ParticipantService participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
         ParticipantDto participantDto = new ParticipantDto();
 //        when + then
-        assertThat(true, is(participantService.addParticipant(participantDto).isActive()));
-        assertThat(participantService.addParticipant(participantDto), instanceOf(ParticipantDtoInfo.class));
+        assertThat(participantService.addParticipant(participantDto).isActive(), is(true));
+        assertThat(participantService.addParticipant(participantDto), is(instanceOf(ParticipantDtoInfo.class)));
     }
 
     @Test
     void shouldSetCompanyNameInParticipantEntityAndReturnParticipantDtoInfo() {
         //        given
-        var participantRepository = mock(ParticipantRepository.class);
-        var participantValidator = new ParticipantValidator();
-        var participantMapper = new ParticipantMapper();
-        var participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
+        ParticipantRepository participantRepository = mock(ParticipantRepository.class);
+        ParticipantValidator participantValidator = new ParticipantValidator();
+        ParticipantMapper participantMapper = new ParticipantMapper();
+        ParticipantService participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
         ParticipantDto participantDto = new ParticipantDto();
         ParticipantEntity participantEntity = new ParticipantEntity();
         participantDto.setCompany("Google");
@@ -52,10 +52,10 @@ class ParticipantServiceImplTest {
     @Test
     void shouldSetLastNameNameInParticipantEntityAndReturnParticipantDtoInfo() {
         //        given
-        var participantRepository = mock(ParticipantRepository.class);
-        var participantValidator = new ParticipantValidator();
-        var participantMapper = new ParticipantMapper();
-        var participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
+        ParticipantRepository participantRepository = mock(ParticipantRepository.class);
+        ParticipantValidator participantValidator = new ParticipantValidator();
+        ParticipantMapper participantMapper = new ParticipantMapper();
+        ParticipantService participantService = new ParticipantServiceImpl(participantRepository, participantValidator, participantMapper);
         ParticipantDto participantDto = new ParticipantDto();
         ParticipantEntity participantEntity = new ParticipantEntity();
         participantDto.setLastName("Kowalski");
