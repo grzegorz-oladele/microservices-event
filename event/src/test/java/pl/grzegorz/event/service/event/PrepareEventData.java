@@ -69,7 +69,7 @@ public class PrepareEventData {
         return list;
     }
 
-    private List<EventMember> listOfEventMembers() {
+    protected List<EventMember> listOfEventMembers() {
         List<EventMember> list = new ArrayList<>();
         EventMember eventMember = new EventMember("tomasz.tomaszewski@123.com");
         EventMember eventMember2 = new EventMember("grzegorz.grzegorzewski@123.com");

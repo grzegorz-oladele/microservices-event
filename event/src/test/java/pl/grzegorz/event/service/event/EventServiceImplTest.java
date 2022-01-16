@@ -1,6 +1,5 @@
 package pl.grzegorz.event.service.event;
 
-import lombok.var;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import pl.grzegorz.event.model.EventDto;
@@ -23,15 +22,15 @@ class EventServiceImplTest {
     void shouldReturnListOfEventsWithAllStatus() {
 //        given
         List<EventDto> eventDtoList = getEventList();
-        var eventRepository = mock(EventRepository.class);
-        var eventValidator = new EventValidator();
-        var participantServiceClient = mock(ParticipantServiceClient.class);
-        var rabbitTemplate = mock(RabbitTemplate.class);
-        var eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventValidator eventValidator = new EventValidator();
+        ParticipantServiceClient participantServiceClient = mock(ParticipantServiceClient.class);
+        RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+        EventService eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
 //        when
         given(eventRepository.findAll()).willReturn(eventDtoList);
 //        then
-        assertThat(4, is(eventService.getAllEvents(null).size()));
+        assertThat(5, is(eventService.getAllEvents(null).size()));
         assertThat(EventDto.Status.ACTIVE, is(eventService.getAllEvents(null).get(0).getStatus()));
         assertThat("25th Anniversary Party", is(eventService.getAllEvents(null).get(1).getDescription()));
         assertThat("Sal-2022", is(eventService.getAllEvents(null).get(2).getCode()));
@@ -45,11 +44,11 @@ class EventServiceImplTest {
         eventDto.setParticipantsLimit(40L);
         String code = "Team-building";
         EventDto event = getEventList().get(0);
-        var eventRepository = mock(EventRepository.class);
-        var eventValidator = new EventValidator();
-        var participantServiceClient = mock(ParticipantServiceClient.class);
-        var rabbitTemplate = mock(RabbitTemplate.class);
-        var eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventValidator eventValidator = new EventValidator();
+        ParticipantServiceClient participantServiceClient = mock(ParticipantServiceClient.class);
+        RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+        EventService eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
 //        when
         given(eventRepository.findById(code)).willReturn(Optional.of(event));
         eventService.editParticipantsLimit(code, eventDto);
@@ -64,11 +63,11 @@ class EventServiceImplTest {
         eventDto.setDescription("The best team building in this year");
         String code = "Team-building";
         EventDto event = getEventList().get(0);
-        var eventRepository = mock(EventRepository.class);
-        var eventValidator = new EventValidator();
-        var participantServiceClient = mock(ParticipantServiceClient.class);
-        var rabbitTemplate = mock(RabbitTemplate.class);
-        var eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventValidator eventValidator = new EventValidator();
+        ParticipantServiceClient participantServiceClient = mock(ParticipantServiceClient.class);
+        RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+        EventService eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
 //        when
         given(eventRepository.findById(code)).willReturn(Optional.of(event));
         eventService.editDescription(code, eventDto);
@@ -81,11 +80,11 @@ class EventServiceImplTest {
         //        given
         Participant participant = getParticipant();
         EventDto event = getEventList().get(4);
-        var eventRepository = mock(EventRepository.class);
-        var eventValidator = new EventValidator();
-        var participantServiceClient = mock(ParticipantServiceClient.class);
-        var rabbitTemplate = mock(RabbitTemplate.class);
-        var eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventValidator eventValidator = new EventValidator();
+        ParticipantServiceClient participantServiceClient = mock(ParticipantServiceClient.class);
+        RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+        EventService eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
 //        when
         given(eventRepository.findById(event.getCode())).willReturn(Optional.of(event));
         given(participantServiceClient.getParticipantById(1)).willReturn(participant);
@@ -100,11 +99,11 @@ class EventServiceImplTest {
         //        given
         Participant participant = getParticipant();
         EventDto event = getEventList().get(0);
-        var eventRepository = mock(EventRepository.class);
-        var eventValidator = new EventValidator();
-        var participantServiceClient = mock(ParticipantServiceClient.class);
-        var rabbitTemplate = mock(RabbitTemplate.class);
-        var eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
+        EventRepository eventRepository = mock(EventRepository.class);
+        EventValidator eventValidator = new EventValidator();
+        ParticipantServiceClient participantServiceClient = mock(ParticipantServiceClient.class);
+        RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+        EventService eventService = new EventServiceImpl(eventRepository, eventValidator, participantServiceClient, rabbitTemplate);
 //        when
         given(eventRepository.findById(event.getCode())).willReturn(Optional.of(event));
         eventService.eventFinishEnroll(event.getCode());

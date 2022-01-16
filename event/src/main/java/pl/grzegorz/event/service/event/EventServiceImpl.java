@@ -35,11 +35,11 @@ public class EventServiceImpl implements EventService {
     public List<EventDto> getAllEvents(EventDto.Status status) {
         if (status == null) {
             List<EventDto> eventList = eventRepository.findAll();
-            eventValidator.validateEmptyList(eventList);
+            eventValidator.validateEmptyDtoList(eventList);
             return eventList;
         } else {
             List<EventDto> eventListByStatus = eventRepository.findAllByStatus(status);
-            eventValidator.validateEmptyList(eventListByStatus);
+            eventValidator.validateEmptyDtoList(eventListByStatus);
             return eventListByStatus;
         }
     }
@@ -63,6 +63,7 @@ public class EventServiceImpl implements EventService {
         eventValidator.validateParticipantsLimit(event.getParticipantsLimit(), event1);
         event1.setCode(code);
         event1.setParticipantsLimit(event.getParticipantsLimit());
+        eventRepository.save(event1);
         return event1;
     }
 
@@ -99,6 +100,7 @@ public class EventServiceImpl implements EventService {
     public List<Participant> getEventMembers(String eventCode) {
         EventDto event = getEvent(eventCode);
         List<String> emailsCourseMembers = getEmailsEventMembers(event);
+        eventValidator.validateEmptyEmailsEventMembersList(emailsCourseMembers);
         return participantServiceClient.getParticipantsByEmailList(emailsCourseMembers);
     }
 

@@ -27,7 +27,7 @@ public class EventController {
         return eventService.getEventByCode(code);
     }
 
-    @PostMapping("/{code}/members")
+    @GetMapping("/{code}/members")
     public List<Participant> getEventMembers(@PathVariable String code) {
         return eventService.getEventMembers(code);
     }
@@ -38,7 +38,7 @@ public class EventController {
     }
 
     @PatchMapping("/edit-limit/{code}")
-    public EventDto editCode(@PathVariable String code, @RequestBody EventDto eventDto) {
+    public EventDto editLimit(@PathVariable String code, @RequestBody EventDto eventDto) {
         return eventService.editParticipantsLimit(code, eventDto);
     }
 

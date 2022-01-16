@@ -15,4 +15,6 @@ public interface ParticipantServiceClient {
 
     @PostMapping("/emails")
     List<Participant> getParticipantsByEmailList(@RequestBody List<String> emails);
+
+
 }

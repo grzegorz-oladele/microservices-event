@@ -11,7 +11,13 @@ import java.util.List;
 @Component
 public class EventValidator {
 
-    protected void validateEmptyList(List<EventDto> list) {
+    protected void validateEmptyDtoList(List<EventDto> list) {
+        if (list.isEmpty()) {
+            throw new EventException(EventError.EVENT_EMPTY_LIST);
+        }
+    }
+//DO WYTESTOWANIA
+    protected void validateEmptyEmailsEventMembersList(List<String> list) {
         if (list.isEmpty()) {
             throw new EventException(EventError.EVENT_EMPTY_LIST);
         }

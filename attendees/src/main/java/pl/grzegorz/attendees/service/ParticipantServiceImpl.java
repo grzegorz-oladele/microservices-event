@@ -72,6 +72,12 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantRepository.delete(participantEntity);
     }
 
+    @Override
+    public List<ParticipantDtoInfo> getParticipantsByEmails(List<String> emails) {
+        List<ParticipantEntity> participants = participantRepository.findAllByEmailIn(emails);
+        return toParticipantListByEmail(participants);
+    }
+
     private List<ParticipantEntity> getParticipantsList() {
         return participantRepository.findAll();
     }

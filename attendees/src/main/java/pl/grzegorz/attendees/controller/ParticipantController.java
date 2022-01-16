@@ -47,4 +47,8 @@ public class ParticipantController {
         participantService.removeParticipantById(id);
     }
 
+    @PostMapping("/emails")
+    public List<ParticipantDtoInfo> getParticipantsByEmail(@RequestBody List<String> emails) {
+        return participantService.getParticipantsByEmails(emails);
+    }
 }

@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Test;
 import pl.grzegorz.event.exception.EventError;
 import pl.grzegorz.event.exception.EventException;
 import pl.grzegorz.event.model.EventDto;
+import pl.grzegorz.event.model.EventMember;
 import pl.grzegorz.event.model.dto.Participant;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,17 +24,38 @@ class EventValidatorTest {
         List<EventDto> listOfEvents = Collections.emptyList();
         EventValidator eventValidator = new EventValidator();
 //        when + then
-        assertThrows(EventException.class, () -> eventValidator.validateEmptyList(listOfEvents));
+        assertThrows(EventException.class, () -> eventValidator.validateEmptyDtoList(listOfEvents));
         assertThat("Events according to your parameters not found", is(EventError.EVENT_EMPTY_LIST.getMessage()));
     }
 
     @Test
-    void shouldReturnMessageWhenListOfEventsIsNotEmpty() {
+    void shouldReturnMessageWhenListOfEventDtoIWillBeNotEmpty() {
 //        given
         List<EventDto> listOfEvents = getListOfEvents();
         EventValidator eventValidator = new EventValidator();
 //        when
-        eventValidator.validateEmptyList(listOfEvents);
+        eventValidator.validateEmptyDtoList(listOfEvents);
+//        then
+        System.out.println("The validateEmptyList() method did not throw an exception. The test passed");
+    }
+
+    @Test
+    void shouldThrowEventExceptionWhenListOfEmailEventMembersIsEmpty() {
+//        given
+        List<String> listOfEmailMembers = Collections.emptyList();
+        EventValidator eventValidator = new EventValidator();
+//        when + then
+        assertThrows(EventException.class, () -> eventValidator.validateEmptyEmailsEventMembersList(listOfEmailMembers));
+        assertThat("Events according to your parameters not found", is(EventError.EVENT_EMPTY_LIST.getMessage()));
+    }
+
+    @Test
+    void shouldReturnMessageWhenListOfEmailEventMembersIWillBeNotEmpty() {
+//        given
+        List<String> listOfEmails = getListOfEmails();
+        EventValidator eventValidator = new EventValidator();
+//        when
+        eventValidator.validateEmptyEmailsEventMembersList(listOfEmails);
 //        then
         System.out.println("The validateEmptyList() method did not throw an exception. The test passed");
     }
@@ -273,5 +296,13 @@ class EventValidatorTest {
     private List<EventDto> getListOfEvents() {
         PrepareEventData eventPrepareData = new PrepareEventData();
         return eventPrepareData.getListOfEvents();
+    }
+
+    private List<String> getListOfEmails() {
+        PrepareEventData prepareEventData = new PrepareEventData();
+        return prepareEventData.listOfEventMembers()
+                .stream()
+                .map(EventMember::getEmail)
+                .collect(Collectors.toList());
     }
 }

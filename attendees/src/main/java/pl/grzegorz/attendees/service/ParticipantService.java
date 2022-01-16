@@ -18,4 +18,6 @@ public interface ParticipantService {
     ParticipantDtoInfo editLastName(long id, ParticipantDto participantDto);
 
     void removeParticipantById(long id);
+
+    List<ParticipantDtoInfo> getParticipantsByEmails(List<String> emails);
 }
