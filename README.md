@@ -13,7 +13,7 @@ available at <span style="color: gold"> http://localhost:8761/eureka </span>
 ## GATEWAY-SERVICE
 
 A component that mediates between the service and the client. A component that mediates between the service and the
-client. Gateway is available at http://localhost:8282/
+client. Gateway is available at http://localhost:8282
 
 Using a path <span style="color: orange"> /api/participants/...</span> we can get to a specific resource on a
 participant site Using a path <span style="color: orange"> /api/events/...</span> we can get to a specific resource on a
